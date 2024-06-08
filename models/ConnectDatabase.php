@@ -5,6 +5,22 @@ class ConnectDatabase{
     public $pdo;
     public $sql;
     public $sta;
+    public function __construct()
+    {
+        // Xử lý ngoại lệ
+        try {
+            $this->pdo = new PDO(
+                "mysql:host=".DBHOST.";dbname=".DBNAME.
+                "; charset=".DBCHARSET,DBUSER, DBPASS
+            );
+            // cai dat xu ly ngoai le
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//            echo "ket noi thanh cong";
+        }catch (PDOException $e){
+            echo "Ket noi that bai".$e->getMessage();
+        }
+
+    }
 //   Các phương thức tạo sẵn theo base
     public function setQuery($sql) {
         $this->sql = $sql;
